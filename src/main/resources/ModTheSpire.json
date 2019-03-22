@@ -1,0 +1,8 @@
+{
+	"modid": "HollowKnightMod",
+	"name": "HollowKnightMod",
+	"author_list": ["Incubator4"],
+	"description": "Test",
+	"version": "1.0",
+	"dependencies": ["basemod"]
+}

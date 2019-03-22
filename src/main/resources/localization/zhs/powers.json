@@ -1,0 +1,16 @@
+{
+  "AntiPoisonPower":{
+    "NAME": "抗毒",
+    "DESCRIPTIONS": [
+      "在你的回合开始时",
+      " 减少一半中毒层数"
+    ]
+  },
+  "SwiftPower":{
+    "NAME": "迅捷",
+    "DESCRIPTIONS": [
+      "打出",
+      "张攻击牌后，将直接行动一次"
+    ]
+  }
+}
