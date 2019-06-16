@@ -5,16 +5,12 @@ import Boss.Hornet;
 import basemod.BaseMod;
 import basemod.interfaces.EditCardsSubscriber;
 import basemod.interfaces.EditStringsSubscriber;
-import basemod.interfaces.PostDungeonInitializeSubscriber;
 import basemod.interfaces.PostInitializeSubscriber;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.compression.lzma.Base;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.Exordium;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.localization.PowerStrings;
-import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,17 +36,14 @@ public class HollowKnightMod implements EditCardsSubscriber,PostInitializeSubscr
 
     @Override
     public void receiveEditStrings() {
-        /*if (Settings.language == Settings.GameLanguage.ZHS) {
-            BaseMod.loadCustomStrings(MonsterStrings.class, Gdx.files.internal(
-                    "localization/zhs/monsters.json").readString(String.valueOf(StandardCharsets.UTF_8)));
-            BaseMod.loadCustomStrings(PowerStrings.class,Gdx.files.internal(
-                    "localization/zhs/powers.json").readString(String.valueOf(StandardCharsets.UTF_8)));
-        } else {
-            BaseMod.loadCustomStrings(MonsterStrings.class, Gdx.files.internal(
-                    "localization/zhs/monsters.json").readString(String.valueOf(StandardCharsets.UTF_8)));
-            BaseMod.loadCustomStrings(PowerStrings.class,Gdx.files.internal(
-                    "localization/zhs/powers.json").readString(String.valueOf(StandardCharsets.UTF_8)));
-        }*/
+        if (Settings.language == Settings.GameLanguage.ZHS) {
+            BaseMod.loadCustomStringsFile(MonsterStrings.class, "localization/zhs/monsters.json");
+            BaseMod.loadCustomStringsFile(PowerStrings.class, "localization/zhs/powers.json");
+        }
+        else {
+            BaseMod.loadCustomStringsFile(MonsterStrings.class, "localization/zhs/monsters.json");
+            BaseMod.loadCustomStringsFile(PowerStrings.class, "localization/zhs/powers.json");
+        }
 
     }
 
@@ -63,10 +56,10 @@ public class HollowKnightMod implements EditCardsSubscriber,PostInitializeSubscr
     public void receivePostInitialize() {
 
 
-        BaseMod.addMonster(Hornet.ID,() -> new Hornet());
-        BaseMod.addBoss(Exordium.ID,Hornet.ID,
-                "images/ui/map/boss/Hornet.png",
-                "images/ui/map/bossOutline/Hornet.png");
+//        BaseMod.addMonster(Hornet.ID,() -> new Hornet());
+//        BaseMod.addBoss(Exordium.ID,Hornet.ID,
+//                "images/ui/map/boss/Hornet.png",
+//                "images/ui/map/bossOutline/Hornet.png");
     }
 
 
