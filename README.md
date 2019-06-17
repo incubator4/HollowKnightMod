@@ -5,3 +5,5 @@ Finished:
 
 To do:
     Another Boss,and others haven't add now.
+    
+Doing: Adding new Cards and Relics.
