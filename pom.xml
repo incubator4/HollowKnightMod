@@ -63,7 +63,7 @@
         <dependency>
             <groupId>basemod</groupId>
             <artifactId>basemod</artifactId>
-            <version>1.5.2</version>
+            <version>3.1.6</version>
             <scope>system</scope>
             <systemPath>${basedir}/lib/BaseMod.jar</systemPath>
         </dependency>
@@ -71,7 +71,7 @@
             <groupId>ModTheSpire</groupId>
             <artifactId>ModTheSpire</artifactId>
             <scope>system</scope>
-            <version>1.5.2</version>
+            <version>3.1.6</version>
             <systemPath>${basedir}/lib/ModTheSpire.jar</systemPath>
         </dependency>
         <dependency>

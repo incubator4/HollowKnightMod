@@ -2,13 +2,19 @@ package HollowKnightMod
 
 
 import Boss.Hornet
+import Card.Blue.DeepFreeze
+import Card.Blue.MultipleProcess
+import Card.Blue.Yoga
+import basemod.AutoAdd
 import basemod.BaseMod
 import basemod.interfaces.EditCardsSubscriber
 import basemod.interfaces.EditStringsSubscriber
 import basemod.interfaces.PostInitializeSubscriber
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer
+import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.core.Settings
 import com.megacrit.cardcrawl.dungeons.Exordium
+import com.megacrit.cardcrawl.localization.CardStrings
 import com.megacrit.cardcrawl.localization.MonsterStrings
 import com.megacrit.cardcrawl.localization.PowerStrings
 import org.apache.logging.log4j.LogManager
@@ -22,11 +28,11 @@ class HollowKnightMod : EditCardsSubscriber, PostInitializeSubscriber, EditStrin
     }
 
 
-
     override fun receiveEditStrings() {
         if (Settings.language === Settings.GameLanguage.ZHS) {
             BaseMod.loadCustomStringsFile(MonsterStrings::class.java, "localization/zhs/monsters.json")
             BaseMod.loadCustomStringsFile(PowerStrings::class.java, "localization/zhs/powers.json")
+            BaseMod.loadCustomStringsFile(CardStrings::class.java, "localization/zhs/cards.json")
         } else {
             BaseMod.loadCustomStringsFile(MonsterStrings::class.java, "localization/zhs/monsters.json")
             BaseMod.loadCustomStringsFile(PowerStrings::class.java, "localization/zhs/powers.json")
@@ -36,7 +42,8 @@ class HollowKnightMod : EditCardsSubscriber, PostInitializeSubscriber, EditStrin
 
 
     override fun receiveEditCards() {
-
+        AutoAdd("HollowKnightMod").packageFilter(AbstractCard::class.java)
+                .setDefaultSeen(true).cards()
     }
 
 
@@ -53,8 +60,8 @@ class HollowKnightMod : EditCardsSubscriber, PostInitializeSubscriber, EditStrin
 
         val MODNAME = "HollowKnightMod"
         val logger = LogManager.getLogger(HollowKnightMod::class.java.name)
+        @JvmStatic
         fun initialize() {
-
             logger.info("========================= HollowKnightMod INIT =========================")
             val mod = HollowKnightMod()
         }
