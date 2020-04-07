@@ -1,24 +1,21 @@
 package HollowKnightMod
 
 
-import Boss.Hornet
 import Card.Blue.DeepFreeze
-import Card.Blue.MultipleProcess
-import Card.Blue.Yoga
 import basemod.AutoAdd
 import basemod.BaseMod
 import basemod.interfaces.EditCardsSubscriber
 import basemod.interfaces.EditStringsSubscriber
 import basemod.interfaces.PostInitializeSubscriber
+import com.badlogic.gdx.Gdx
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer
 import com.megacrit.cardcrawl.cards.AbstractCard
 import com.megacrit.cardcrawl.core.Settings
-import com.megacrit.cardcrawl.dungeons.Exordium
-import com.megacrit.cardcrawl.localization.CardStrings
-import com.megacrit.cardcrawl.localization.MonsterStrings
-import com.megacrit.cardcrawl.localization.PowerStrings
+import com.megacrit.cardcrawl.localization.*
 import org.apache.logging.log4j.LogManager
-import org.apache.logging.log4j.Logger
+import java.lang.reflect.Type
+import java.util.HashMap
+import java.nio.charset.StandardCharsets
 
 
 @SpireInitializer
@@ -29,19 +26,37 @@ class HollowKnightMod : EditCardsSubscriber, PostInitializeSubscriber, EditStrin
 
 
     override fun receiveEditStrings() {
-        if (Settings.language === Settings.GameLanguage.ZHS) {
-            BaseMod.loadCustomStringsFile(MonsterStrings::class.java, "localization/zhs/monsters.json")
-            BaseMod.loadCustomStringsFile(PowerStrings::class.java, "localization/zhs/powers.json")
-            BaseMod.loadCustomStringsFile(CardStrings::class.java, "localization/zhs/cards.json")
-        } else {
-            BaseMod.loadCustomStringsFile(MonsterStrings::class.java, "localization/zhs/monsters.json")
-            BaseMod.loadCustomStringsFile(PowerStrings::class.java, "localization/zhs/powers.json")
-        }
+        var jsonArray = HashMap<Type, String>()
+        jsonArray.put(MonsterStrings::class.java,"")
+        jsonArray.put(PowerStrings::class.java,"")
+        jsonArray.put(EventStrings::class.java,"")
+        jsonArray.put(PotionStrings::class.java,"")
+        jsonArray.put(RelicStrings::class.java,"")
 
+        var monsterJsonPath: String = ""
+        var powersJsonPath: String = ""
+        var cardJsonPath: String = ""
+        when (Settings.language) {
+            Settings.GameLanguage.ZHS -> {
+                monsterJsonPath = "localization/zhs/monsters.json"
+                powersJsonPath = "localization/zhs/powers.json"
+                cardJsonPath = "localization/zhs/cards.json"
+            }
+            else -> {
+                monsterJsonPath = "localization/zhs/monsters.json"
+                powersJsonPath = "localization/zhs/powers.json"
+                cardJsonPath = "localization/zhs/cards.json"
+            }
+        }
+        BaseMod.loadCustomStrings(MonsterStrings::class.java, Gdx.files.internal(monsterJsonPath)
+                .readString(StandardCharsets.UTF_8.toString()))
+        BaseMod.loadCustomStrings(CardStrings::class.java, Gdx.files.internal(cardJsonPath)
+                .readString(StandardCharsets.UTF_8.toString()))
     }
 
 
     override fun receiveEditCards() {
+        BaseMod.addCard(DeepFreeze())
         AutoAdd("HollowKnightMod").packageFilter(AbstractCard::class.java)
                 .setDefaultSeen(true).cards()
     }
@@ -60,6 +75,7 @@ class HollowKnightMod : EditCardsSubscriber, PostInitializeSubscriber, EditStrin
 
         val MODNAME = "HollowKnightMod"
         val logger = LogManager.getLogger(HollowKnightMod::class.java.name)
+
         @JvmStatic
         fun initialize() {
             logger.info("========================= HollowKnightMod INIT =========================")
